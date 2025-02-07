@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตะกร้าสินค้า</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/WEB/index2/cart.css">
+</head>
+<body>
+  
+    <div id="navbar-placeholder"></div>
+    <script src="/index/navbar.js"></script>
+
+    <div class="container py-5">
+        <h2 class="text-center mb-4">🛒 ตะกร้าสินค้าของคุณ</h2>
+
+        <div id="cart-items" class="row">
+            <!-- สินค้าจะถูกแสดงที่นี่ -->
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-danger" id="clear-cart">🗑 ลบสินค้าทั้งหมด</button>
+            <button class="btn btn-success mt-3" id="checkout-btn">💳ชำระเงิน</button> <!-- ปุ่ม "ซื้อเลย" -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const checkoutBtn = document.getElementById('checkout-btn'); // ปุ่ม "ซื้อเลย"
+
+            function updateCartDisplay() {
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                cartItemsContainer.innerHTML = '';
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="text-center">🛒 ตะกร้าของคุณว่างเปล่า</p>';
+                    checkoutBtn.disabled = true; // ปิดการใช้งานปุ่ม "ซื้อเลย" หากตะกร้าว่าง
+                    return;
+                }
+
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'col-md-4 mb-4';
+                    cartItem.innerHTML = `
+                        <div class="card">
+                            <img src="${item.image}" class="card-img-top" alt="${item.name}">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.name}</h5>
+                                <p class="card-text">ราคา: ฿${parseFloat(item.price)}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="quantity">
+                                        <button class="btn btn-secondary minus-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                                        <input type="text" value="${item.quantity}" readonly class="text-center">
+                                        <button class="btn btn-secondary plus-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                                    </div>
+                                    <p class="total-price">รวม: ฿${(parseFloat(item.price) * item.quantity).toFixed(2)}</p>
+                                    <!-- ปุ่มลบสินค้า -->
+                                    <button class="btn btn-danger" onclick="removeItemFromCart(${item.id})">🗑 ลบสินค้า</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+
+                checkoutBtn.disabled = false; // เปิดการใช้งานปุ่ม "ซื้อเลย" หากมีสินค้าในตะกร้า
+            }
+            document.getElementById('checkout-btn').addEventListener('click', () => {
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+                if (cart.length === 0) {
+                    alert("กรุณาเลือกสินค้าก่อนทำการซื้อ");
+                    return;
+                }
+
+                // บันทึกข้อมูลสินค้าในตะกร้าไปยัง localStorage
+                localStorage.setItem('checkoutCart', JSON.stringify(cart));
+
+                // เปลี่ยนหน้าไป payment.html
+                window.location.href = "payment.html";
+            });
+
+            // ฟังก์ชันเพิ่ม/ลดจำนวนสินค้า
+            window.changeQuantity = (id, delta) => {
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+                cart = cart.map(item => {
+                    if (item.id === id) {
+                        item.quantity += delta;
+                        if (item.quantity <= 0) item.quantity = 1; // ป้องกันค่าติดลบ
+                    }
+                    return item;
+                });
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay(); // อัปเดตการแสดงผลแทนการรีเฟรช
+            };
+
+            // ฟังก์ชันลบสินค้าจากตะกร้า
+            window.removeItemFromCart = (id) => {
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                cart = cart.filter(item => item.id !== id); // ลบสินค้าจากตะกร้าโดยการกรองตาม id
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay(); // อัปเดตการแสดงผลหลังจากลบสินค้า
+            };
+
+            // ลบสินค้าทั้งหมด
+            document.getElementById('clear-cart').addEventListener('click', () => {
+                localStorage.removeItem('cart');
+                updateCartDisplay();
+            });
+
+            checkoutBtn.addEventListener('click', () => {
+                 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+                if (cart.length === 0) {
+                    alert("กรุณาเลือกสินค้าก่อนทำการซื้อ");
+                    return;
+                }
+
+            // บันทึกข้อมูลสินค้าในตะกร้าก่อนเปลี่ยนหน้า
+            localStorage.setItem('checkoutCart', JSON.stringify(cart));
+
+            // เปลี่ยนหน้าไป payment.html
+            window.location.href = "payment.html";
+        });
+            updateCartDisplay();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

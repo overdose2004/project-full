@@ -1,0 +1,24 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#qr-container {
+    border: 2px dashed #28a745;
+    padding: 20px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+#qr-code {
+    max-width: 250px;
+    height: auto;
+}

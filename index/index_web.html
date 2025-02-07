@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- กำหนดชนิดของเอกสารเป็น HTML5 และภาษาเป็นอังกฤษ -->
+<head>
+    <meta charset="UTF-8">
+    <!-- กำหนดการเข้ารหัสเป็น UTF-8 เพื่อรองรับตัวอักษรภาษาไทย -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- กำหนดขนาดของหน้าเว็บให้เหมาะสมกับอุปกรณ์มือถือ -->
+    <title>SuperBike ซื้อ-ขายอะไหล่รถ Bigbike</title>
+    <!-- กำหนดชื่อเรื่องของหน้าเว็บ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- เชื่อมโยงไปยังไฟล์ CSS ของ Bootstrap จาก CDN -->
+    <link rel="stylesheet" href="/index/index_web.css">
+    <!-- เชื่อมโยงไปยังไฟล์ CSS ภายในโปรเจกต์ (ในกรณีที่มีการตั้งค่าของผู้ใช้) -->
+</head>
+<body>
+    <!-- เริ่มต้นเนื้อหาของ body -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- ส่วนของเมนู (navbar) ที่ใช้สำหรับการนำทาง -->
+        <div class="container-fluid">
+            <!-- คอนเทนเนอร์ภายใน navbar -->
+            <a class="navbar-brand" href="#">SuperBike</a>
+            <!-- ชื่อของเว็บไซต์ในเมนู -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- ปุ่ม toggle สำหรับแสดงเมนูในหน้าจอขนาดเล็ก -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- ส่วนเมนูที่สามารถพับได้ -->
+                <ul class="navbar-nav ms-auto">
+                    <!-- รายการเมนูทั้งหมด -->
+                    <li class="nav-item"><a class="nav-link active" href="/index/index_web.html">หน้าหลัก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/index3/product.html">สินค้า</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/index2/cart.html">ตะกร้าสินค้า</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/index4/cc.html">ติดต่อ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login/login.html">เข้าสู่ระบบ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-primary text-white text-center py-5" style="background-image: url(&quot;https://img2.pic.in.th/pic/Motorcycle-parts-Bike21.jpg&quot;);">
+        <!-- ส่วนของ header ที่มีรูปภาพพื้นหลัง -->
+        <div class="container">
+            <h1>ค้นหาสิ่งที่คุณต้องการ</h1>
+            <!-- หัวข้อหลักของหน้า -->
+            <p class="lead">Explore our wide range of products at the best prices.</p>
+            <!-- คำอธิบายเล็กน้อย -->
+            <a href="#shop" class="btn btn-light btn-lg mt-3">สั่งซื้อตอนนี้</a>
+            <!-- ปุ่มที่ลิงก์ไปยังส่วนการสั่งซื้อ -->
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <!-- คอนเทนเนอร์สำหรับแสดงรายการสินค้า -->
+        <h2 class="text-center mb-4">🛍️ รายการสินค้า</h2>
+        <!-- หัวข้อของส่วนรายการสินค้า -->
+        <div id="product-list" class="row"></div>
+        <!-- ส่วนที่จะใส่สินค้าแบบ dynamic -->
+    </div>
+    
+    <!-- 🛒 ป๊อปอัป Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <!-- ป๊อปอัป (modal) สำหรับเพิ่มสินค้าไปยังตะกร้า -->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">🛒 เพิ่มสินค้าลงตะกร้า</h5>
+                    <!-- หัวข้อของป๊อปอัป -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!-- ปุ่มปิดป๊อปอัป -->
+                </div>
+                <div class="modal-body">
+                    <img id="modal-image" class="img-fluid mb-3" alt="">
+                    <!-- รูปภาพของสินค้าที่จะเพิ่ม -->
+                    <h5 id="modal-name"></h5>
+                    <!-- ชื่อสินค้า -->
+                    <p id="modal-price" class="text-primary"></p>
+                    <!-- ราคาสินค้า -->
+    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn btn-secondary" id="minus-btn">-</button>
+                        <!-- ปุ่มลดจำนวนสินค้า -->
+                        <input type="text" id="quantity" value="1" class="text-center form-control w-25" readonly>
+                        <!-- ฟิลด์แสดงจำนวนสินค้า -->
+                        <button class="btn btn-secondary" id="plus-btn">+</button>
+                        <!-- ปุ่มเพิ่มจำนวนสินค้า -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">❌ ยกเลิก</button>
+                    <!-- ปุ่มยกเลิก -->
+                    <button type="button" class="btn btn-primary" id="confirm-add">✅ เพิ่มสินค้า</button>
+                    <!-- ปุ่มยืนยันการเพิ่มสินค้าไปยังตะกร้า -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // เมื่อโหลดเสร็จ จะรันฟังก์ชันนี้
+        const productList = document.getElementById("product-list");
+        // เรียกใช้ element ที่ใช้แสดงสินค้าบนหน้าเว็บ
+
+        const products = [
+            { id: 1, name: "ผ้าเบรค", price: 150, description: "High-quality brake pads.", image: "https://img5.pic.in.th/file/secure-sv1/bb.webp" },
+            { id: 2, name: "น้ำมันเครื่อง", price: 300, description: "Durable and efficient oil filter.", image: "https://img2.pic.in.th/pic/mo.jpg" },
+            { id: 3, name: "ท่อรถ", price: 1500, description: "Reliable exhaust pipe.", image: "https://img2.pic.in.th/pic/_31-1-2025_21488_www.akrapovic.com.jpeg" },
+        ];
+        // ข้อมูลสินค้า
+
+        products.forEach(product => {
+            const productCard = document.createElement("div");
+            productCard.className = "col-md-4 mb-4";
+            productCard.innerHTML = `
+                <div class="card">
+                    <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">${product.description}</p>
+                        <p class="card-text text-primary">฿${product.price}</p>
+                        <button class="btn btn-primary" onclick="openCartModal(${product.id}, '${product.name}', ${product.price}, '${product.image}')">🛒 Add to Cart</button>
+                    </div>
+                </div>
+            `;
+            productList.appendChild(productCard);
+        });
+        // แสดงสินค้าทั้งหมดในหน้าเว็บ
+
+        window.openCartModal = (id, name, price, image) => {
+            // ฟังก์ชันเปิดป๊อปอัปเมื่อคลิกปุ่ม "Add to Cart"
+            document.getElementById("modal-name").innerText = name;
+            document.getElementById("modal-price").innerText = `ราคา: ฿${price}`;
+            document.getElementById("modal-image").src = image;
+            document.getElementById("quantity").value = 1;
+    
+            // เก็บค่าไว้เพื่อใช้ตอนเพิ่มลงตะกร้า
+            document.getElementById("confirm-add").setAttribute("onclick", `addToCart(${id}, '${name}', ${price}, '${image}')`);
+            
+            let modal = new bootstrap.Modal(document.getElementById("cartModal"));
+            modal.show();
+        };
+
+        window.addToCart = (id, name, price, image) => {
+            // ฟังก์ชันสำหรับเพิ่มสินค้าไปยังตะกร้า
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let quantity = parseInt(document.getElementById("quantity").value);
+
+            const existingProductIndex = cart.findIndex(item => item.id === id);
+            if (existingProductIndex >= 0) {
+                cart[existingProductIndex].quantity += quantity;
+            } else {
+                cart.push({ id, name, price, image, quantity });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} (${quantity} ชิ้น) ถูกเพิ่มลงตะกร้าแล้ว!`);
+            // แจ้งเตือนเมื่อเพิ่มสินค้าลงตะกร้า
+        };
+
+        document.getElementById("plus-btn").addEventListener("click", () => {
+            // ฟังก์ชันเพิ่มจำนวนสินค้า
+            let qty = parseInt(document.getElementById("quantity").value);
+            document.getElementById("quantity").value = qty + 1;
+        });
+
+        document.getElementById("minus-btn").addEventListener("click", () => {
+            // ฟังก์ชันลดจำนวนสินค้า
+            let qty = parseInt(document.getElementById("quantity").value);
+            if (qty > 1) document.getElementById("quantity").value = qty - 1;
+        });
+    });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- โหลด JavaScript ของ Bootstrap -->
+</body>
+</html>

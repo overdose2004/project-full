@@ -1,0 +1,339 @@
+body {
+    background-image: url(https://img5.pic.in.th/file/secure-sv1/MEYM_2024_06_GP_Catalunya_73194.jpg);
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    padding: 20px;
+    
+}
+
+h1 {
+    text-align: center;
+    color: hsl(0, 100%, 100%);
+}
+
+.category {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.category h2 {
+    background-color: #683cc1;
+    color: white;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 150px;  /* ปรับขนาดให้พอดีกับข้อความ */
+    display: inline-block;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* ปรับการจัดระเบียบสินค้าภายในหมวดหมู่ */
+.product-list {
+    display: flex;
+    justify-content: space-between;  /* ใช้ space-between เพื่อให้สินค้าอยู่ติดกันแต่ห่างกันเล็กน้อย */
+    flex-wrap: wrap;
+    gap: 10px;  /* กำหนดระยะห่างระหว่างสินค้ามากขึ้น */
+    justify-content: center;  /* จัดให้อยู่กลาง */
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+    background-color: white;
+    width: 200px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+/* ป๊อบอัพ */
+.popup {
+    display: none; /* เริ่มต้นปิด */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+}
+
+.popup h2 {
+    margin-bottom: 20px;
+}
+
+.popup .close-btn {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.overlay {
+    display: none; /* เริ่มต้นปิด */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* เพิ่มปุ่มเพิ่ม-ลด จำนวน */
+#popup-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#popup-quantity button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 10px;
+    border: none;
+    background-color: #f0f0f0;
+}
+
+#popup-quantity span {
+    font-size: 20px;
+}
+
+#popup-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+#popup-actions .confirm, #popup-actions .cancel {
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
+#popup-actions .confirm {
+    background-color: #28a745;
+    color: white;
+}
+
+#popup-actions .cancel {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* สไตล์อื่น ๆ สำหรับหมวดหมู่สินค้า */
+.category {
+    margin-top: 20px;
+}
+
+.product-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.product {
+    width: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+}
+
+.product .button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.product .button:hover {
+    background-color: #218838;
+}
+
+
+.overlay {
+    display: none; /* เริ่มต้นปิด */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 999;
+}
+
+/* เพิ่มปุ่มเพิ่ม-ลด จำนวน */
+#popup-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#popup-quantity button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 10px;
+    border: none;
+    background-color: #f0f0f0;
+}
+
+#popup-quantity span {
+    font-size: 20px;
+}
+
+/* สไตล์อื่น ๆ สำหรับหมวดหมู่สินค้า */
+.category {
+    margin-top: 20px;
+}
+
+.product-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.product {
+    width: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+}
+
+.product .button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.product .button:hover {
+    background-color: #218838;
+}
+
+
+.overlay {
+    display: none; /* เริ่มต้นปิด */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* สไตล์อื่น ๆ สำหรับหมวดหมู่สินค้า */
+.category {
+    margin-top: 20px;
+}
+
+.product-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.product {
+    width: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+}
+
+.product .button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.product .button:hover {
+    background-color: #218838;
+}
+
+
+/* เพิ่มสไตล์อื่น ๆ สำหรับหมวดหมู่สินค้า */
+.category {
+    margin-top: 20px;
+}
+
+.product-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.product {
+    width: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+}
+
+.product .button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.product .button:hover {
+    background-color: #218838;
+}
+
