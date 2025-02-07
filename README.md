@@ -1,7 +1,7 @@
 ขั้นตอนการ run server
 
-1. กดที่ flie แล้วแล้วเลือก RUN SQL.file แล้วเลือก (ตามชื่อไฟล์sql).sql กด open
-2.Set database connection int .env file database name=(ตามชื่อdatabase) username=(ตามชื่อusernameตอนเข้าheidi)  password=(ตามที่ตั้งไม่มีก็ไม่ใส่)  port=3306
+1. กดที่ flie แล้วแล้วเลือก RUN SQL.file แล้วเลือก data.sql กด open
+2.Set database connection int .env file database name=(iiii) user=(user)  password=(1234)  port=3306
 
 
 
@@ -9,6 +9,8 @@
 npm install express cors mysql2 bcryptjs body-parser
 
 npm i init -y
+
+npm run start
 
 สมาชิกและหน้าที่
 
